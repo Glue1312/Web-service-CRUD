@@ -10,12 +10,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Buat koneksi ke database
-const db = mysql.createConnection({
-    host: '34.101.58.75',
-    user: 'silvester',
-    password: '',
-    database: 'notes_db'
-});
+const dbConfig = {
+  socketPath: '/cloudsql/INSTANCE_CONNECTION_NAME',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+};
 
 db.connect((err) => {
     if (err) {
