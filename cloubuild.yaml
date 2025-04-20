@@ -1,0 +1,20 @@
+steps:
+  # Build & Deploy Backend ke Cloud Run
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/notes-backend', './backend']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: ['gcloud', 'run', 'deploy', 'notes-backend',
+          '--image', 'gcr.io/$PROJECT_ID/notes-backend',
+          '--region', 'asia-southeast1',
+          '--platform', 'managed',
+          '--allow-unauthenticated']
+
+  # Build & Deploy Frontend ke Cloud Run
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/notes-frontend', './frontend']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: ['gcloud', 'run', 'deploy', 'notes-frontend',
+          '--image', 'gcr.io/$PROJECT_ID/notes-frontend',
+          '--region', 'asia-southeast1',
+          '--platform', 'managed',
+          '--allow-unauthenticated']
