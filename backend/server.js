@@ -4,18 +4,20 @@ const cors = require('cors');
 const mysql = require('mysql');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Buat koneksi ke database
+// Konfigurasi database menggunakan environment variables
 const dbConfig = {
-  socketPath: '/cloudsql/INSTANCE_CONNECTION_NAME',
+  socketPath: process.env.DB_SOCKET_PATH || '/cloudsql/your-connection-name',
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 };
+
+const db = mysql.createConnection(dbConfig);
 
 db.connect((err) => {
     if (err) {
