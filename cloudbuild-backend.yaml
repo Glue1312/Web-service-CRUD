@@ -18,6 +18,3 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
   
-substitution:
-    _DB_USER: 'silvester'
-    _DB_PASS: ''
