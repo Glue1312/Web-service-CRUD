@@ -17,6 +17,7 @@ steps:
   ]
 options:
   logging: CLOUD_LOGGING_ONLY
-  substitution:
+  
+substitution:
     _DB_USER: 'silvester'
-    _DB_PASS: 'your-db-password'
+    _DB_PASS: ''
