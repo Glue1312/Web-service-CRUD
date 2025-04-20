@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 
 // Buat koneksi ke database
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+    host: '34.101.58.75',
+    user: 'silvester',
     password: '',
     database: 'notes_db'
 });
