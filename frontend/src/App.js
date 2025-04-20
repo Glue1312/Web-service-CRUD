@@ -15,8 +15,7 @@ const App = () => {
 
     const fetchNotes = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/notes');
-            setNotes(response.data);
+            const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://your-cloud-run-url.a.run.app';
         } catch (error) {
             console.error('Error fetching notes:', error);
         }
@@ -49,7 +48,7 @@ const App = () => {
       if (!validateNote()) return;
   
       try {
-          const response = await axios.post('http://localhost:5000/notes', newNote);
+          const response = await axios.post(`${API_BASE_URL}/notes`, newNote);
           setNotes([response.data, ...notes]); // Menambahkan catatan baru ke awal array
           setNewNote({ title: '', content: '' });
       } catch (error) {
@@ -62,7 +61,7 @@ const App = () => {
         if (!validateNote()) return;
 
         try {
-            const response = await axios.put(`http://localhost:5000/notes/${editingNote.id}`, newNote);
+            const response = await axios.put(`${API_BASE_URL}/notes/${editingNote.id}`, newNote);
             setNotes(notes.map(note => note.id === editingNote.id ? response.data : note));
             setEditingNote(null);
             setNewNote({ title: '', content: '' });
@@ -73,7 +72,7 @@ const App = () => {
 
     const deleteNote = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/notes/${id}`);
+            await axios.delete(`${API_BASE_URL}/notes${id}`);
             fetchNotes();
         } catch (error) {
             console.error('Error deleting note:', error);
